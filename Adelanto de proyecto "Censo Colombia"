@@ -1,10 +1,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
 struct Municipio
-{
-    int idMunicipio;
+{int idMunicipio;
     string nombre_municipio;
     int hombres;
     int mujeres;
@@ -88,7 +86,6 @@ int main ()
                     };
                 } while (opcion1 != 4);
                 break;
-
             case 2:
                 cout << "MUNICIPIOS" << endl;
 
@@ -180,6 +177,10 @@ int main ()
                 } while (opcion != 6);
                 break;
         }
+    } while (opcion != 2);
+
+    return 0;
+}
     } while (opcion != 2);
 
     return 0;

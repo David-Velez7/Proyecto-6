@@ -1,138 +1,186 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-int main()
+struct Municipio
 {
-	int poblacion, hombres, mujeres, edad_promedio, opcion, opcion1, opcion2, op;
-	float ingreso_promedio, temperatura_media, valor;
-	string nombre_municipio, departamento, pais;
-	
-	cout<<"CENSO COLOMBIA"<<endl;
-	cout<<"Elige una opción: "<<endl;
-	cout<<"1. Departamentos"<<endl;
-	cout<<"2. Municipio"<<endl;
-	cin>>opcion;
-	switch(opcion)
-	{
-	     case 1:
-	     do
-	     {
-		    cout<<"\nDepartamentos región Andina: Antioquia, Boyacá, Caldas, Cundinamarca, Huila, Norte de Santander, Quindío, Risaralda, Santander, Tolima"<<endl;
-		    cout<<"Departamentos región Caribe: Atlántico, Bolívar, Córdoba, La Guajira, Magdalena, Sucre, cesar"<<endl;
-		    cout<<"Departamentos región Pacífica: Cauca, Chocó, Nariño, Valle del Cauca"<<endl;
-		    cout<<"Departamentos región Orinoquia: Arauca, Casanare, Meta, Vichada"<<endl;
-		    cout<<"Departamentos región Amazónica: Amazonas, Caquetá, Guaviare, Putumayo, Vaupés"<<endl;
-		    cout<<"Departamentos región insular: San Andres y Providencia"<<endl;
-		    cout << "\nIngrese una opcion"<<endl;
-		    cout << "1) Departamentos con ingresos superior al valor escrito"<<endl;
-		    cout << "2) Departamentos con ingresos iguales al valor escrito"<<endl;
-		    cout << "3) Total del censo por departamento"<<endl;
-		    cout << "4) Volver al menu"<<endl;
-			cin >> opcion1;
-		    switch(opcion1)
-		    {
-		        case 1:
-		        {
-		    	cout<<"Departamentos con ingresos superior al valor escrito: "<<endl;
-		    	cout<<"Ingrese un valor: "<<endl;
-		    	cin>>valor;
-		        }
-	            break;
-	            case 2:
-		        {
-		    	cout<<"Departamentos con ingresos iguales al valor escrito: "<<endl;
-		    	cout<<"Ingrese un valor: "<<endl;
-		    	cin>>valor;
-		        }
-	            break;
-	            case 3:
-		        {
-			    cout<<"Total del censo por departamento: "<<endl;
-			    cout<<"Ingresa el departamento: "<<endl;
-			    cin>>departamento;
-			    cout<<"El censo de este departamento es: "<<endl;
-	 	        }
-	            case 4:
-		        {
-			    cout<<"Volver al menu "<<endl;
-			    cout<<"Lo sentimos por ahora no se puede realizar esta opción, intente otra"<<endl;
-		        }
-	            break;
-	            default:
-	            {
-                cout<<"Ingresa una opción válida"<<endl;
-                }break;
-		    };
-	     } while(op!=4);
-	  case 2:
-	  do
-	  {
-		    cout<<"Municipios"<<endl;
-		    cout << "Ingrese una opcion"<<endl;
-		    cout << "1) Ingresa un municipio"<<endl;
-		    cout << "2) ¿Que municipio quieres editar?"<<endl;
-		    cout << "3) ¿Que municipio desea eliminar?"<<endl;
-		    cout << "4) ¿Que municipio desea Buscar de un departamento?"<<endl;
-   		    cout << "5) Volver al menu"<<endl;
+    int idMunicipio;
+    string nombre_municipio;
+    int hombres;
+    int mujeres;
+    int edad_promedio;
+    int ingreso_promedio;
+    int temperatura_media;
+};
 
-			cin >> opcion2;
-		        switch(opcion2)
-		           {
-		               case 1:
-		                {
-		                cout<<"Ingresa un municipio"<<endl;
-		                
-                        cout << "Ingrese el nombre del municipio: ";
-                        cin >> nombre_municipio;
-                        cout << "Ingrese la poblacion total: ";
-                        cin >> poblacion;
-                        cout << "Ingrese la cantidad de hombres: ";
-                        cin >> hombres;
-                        mujeres = poblacion - hombres;
-                        cout << "Ingrese la edad promedio: ";
-                        cin >> edad_promedio;
-                        cout << "Ingrese el ingreso promedio: ";
-                        cin >> ingreso_promedio;
-                        cout << "Ingrese la temperatura media: ";
-                        cin >> temperatura_media;
-                        cout << "Municipio ingresado exitosamente." << endl;
-                    break;
-                    }
-	                  case 2:
-		              {
-		        	  cout<<"¿Que municipio quieres editar?: "<<endl;
-		        	  cout<<"Lo sentimos por ahora no se puede realizar esta opción, intente otra"<<endl;
-	            	  }
-    	              break;
-    	              case 3:
-	                  {
-	            	  cout<<"¿Que municipio desea eliminar?: "<<endl;
-	            	  cout<<"Lo sentimos por ahora no se puede realizar esta opción, intente otra"<<endl;
-    	              }
-	                  break;
-	                  case 4:
-		              {
-		        	  cout<<"¿Que municipio desea Buscar de un departamento?: "<<endl;
-		        	  cout<<"Lo sentimos por ahora no se puede realizar esta opción, intente otra"<<endl;
-		              }
-		            case 5:
-		            {
-			        cout<<"Volver al menu "<<endl;
-		            }
-                    break;
-                    default:
-                cout << "Opción no permitida"<< endl;
-                cout << "Por favor, ingrese una opción válida." << endl;
+struct Departamento 
+{
+    string nombre;
+    int poblacionTotal;
+    int hombresTotal;
+    int mujeresTotal;
+    float edadPromedio;
+    float ingresoPromedio;
+    float temperaturaMedia;
+};
+
+int main ()
+{
+    int opcion, opcion1, opcion2;
+    float valor;
+    string departamento, busqueda;
+    Municipio listaMunicipios[20];
+    Departamento listaDepartamentos[32];
+
+    do
+    {
+        cout << "ELIGE UNA OPCIÓN: " << endl;
+        cout << "\n1) DEPARTAMENTOS" << endl;
+        cout << "2) MUNICIPIO" << endl;
+        cin >> opcion;
+
+        switch (opcion)
+        {
+            case 1:
+                do
+                {
+                    cout << "DEPARTAMENTOS POR REGIÓN" << endl;
+                    cout << "\nDepartamentos región Andina: Antioquia, Boyacá, Caldas, Cundinamarca, Huila, Norte de Santander, Quindó, Risaralda, Santander, Tolima" << endl;
+                    cout << "Departamentos región Caribe: Atlántico, Bolívar, Córdoba, La Guajira, Magdalena, Sucre, Cesar" << endl;
+                    cout << "Departamentos región Pacífica: Cauca, Chocó, Nariño, Valle del Cauca" << endl;
+                    cout << "Departamentos región Orinoquia: Arauca, Casanare, Meta, Vichada" << endl;
+                    cout << "Departamentos región Amazónica: Amazonas, Caquetá, Guaviare, Putumayo, Vaupés" << endl;
+                    cout << "Departamentos región insular: San Andres y Providencia" << endl;
+                    cout << "\nINGRESE UNA OPCION" << endl;
+                    cout << "\n1) Departamentos con ingresos superior al valor escrito" << endl;
+                    cout << "2) Departamentos con ingresos iguales al valor escrito" << endl;
+                    cout << "3) Total del censo por departamento" << endl;
+                    cout << "4) Volver al menu" << endl;
+                    cin >> opcion1;
+
+                    switch (opcion1)
+                    {
+                        case 1:
+                            cout << "Departamentos con ingresos superior al valor escrito: " << endl;
+                            cout << "Ingrese un valor: ";
+                            cin >> valor;
+                            break;
+
+                        case 2:
+                            cout << "Departamentos con ingresos iguales al valor escrito: " << endl;
+                            cout << "Ingrese un valor: ";
+                            cin >> valor;
+                            break;
+
+                        case 3:
+                            cout << "Total del censo por departamento: " << endl;
+                            cout << "Ingresa el departamento: ";
+                            cin >> departamento;
+                            cout << "El censo de este departamento es: " << endl;
+                            break;
+
+                        case 4:
+                            break;
+
+                        default:
+                            cout << "Ingresa una opción válida" << endl;
+                            break;
+                    };
+                } while (opcion1 != 4);
                 break;
-		           };
-		}while(op!=5);
-	    case 3:
-	       	{
-		cout<<"Total de censo a nivel nacional: "<<endl;
-		    }
-	    break;
-	    default:
-	  	{
-		}
-	}
+
+            case 2:
+                cout << "MUNICIPIOS" << endl;
+
+                do
+                {
+                    cout << "SELECCIONA UNA OPCION" << endl;
+                    cout << "\n1) Ingresar un municipio" << endl;
+                    cout << "2) Buscar los datos de un municipio " << endl;
+                    cout << "3) ¿Qué municipio desea eliminar?" << endl;
+                    cout << "4) ¿Qué municipio desea buscar de un departamento?" << endl;
+                    cout << "5) Mostrar municipios ingresados hasta ahora" << endl;
+                    cout << "6) Volver al menu" << endl;
+                    cin >> opcion2;
+
+                    switch (opcion2)
+                    {
+                        case 1:
+                            for (int i = 0; i < 1; i++)
+                            {
+                                cout << "Ingresa un ID para identificar el municipio: ";
+                                cin >> listaMunicipios[i].idMunicipio;
+                                cout << "Ingresa el nombre del municipio: ";
+                                cin >> listaMunicipios[i].nombre_municipio;
+                                cout << "Ingrese cantidad de hombres: ";
+                                cin >> listaMunicipios[i].hombres;
+                                cout << "Ingrese cantidad de mujeres: ";
+                                cin >> listaMunicipios[i].mujeres;
+                                cout << "Ingrese la edad promedio: ";
+                                cin >> listaMunicipios[i].edad_promedio;
+                                cout << "Ingrese el ingreso promedio: ";
+                                cin >> listaMunicipios[i].ingreso_promedio;
+                                cout << "Ingrese la temperatura media: ";
+                                cin >> listaMunicipios[i].temperatura_media;
+                            }
+                            break;
+
+                        case 2:
+                            int busqueda;
+                            cout << "Ingrese el ID del municipio que desea editar: ";
+                            cin >> busqueda;
+                            for (int i = 0; i < 2; i++)
+                            {
+                                if (busqueda == listaMunicipios[i].idMunicipio)
+                                {
+                                    cout << "ID del municipio: " << listaMunicipios[i].idMunicipio << endl;
+                                    cout << "Nombre del municipio: " << listaMunicipios[i].nombre_municipio << endl;
+                                    cout << "Cantidad de hombres: " << listaMunicipios[i].hombres << endl;
+                                    cout << "Cantidad de mujeres: " << listaMunicipios[i].mujeres << endl;
+                                    cout << "Edad promedio: " << listaMunicipios[i].edad_promedio << endl;
+                                    cout << "Ingreso promedio: " << listaMunicipios[i].ingreso_promedio << endl;
+                                    cout << "Temperatura media: " << listaMunicipios[i].temperatura_media << endl;
+                                    break;
+                                }
+                            }
+                            break;
+
+                        case 3:
+                            cout << "¿Qué municipio desea eliminar?";
+                            cin >> busqueda;
+                            for (int i = 0; i < 20; i++)
+                            {
+                                cout << "...";
+                            }
+                            break;
+
+                        case 4:
+                            cout << "Municipios ingresados hasta ahora: " << endl;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                cout << "...";
+                            }
+                            break;
+
+                        case 5:
+                            cout << "Municipios ingresados hasta ahora: " << endl;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                cout << "...";
+                            }
+                            break;
+
+                        case 6:
+                            break;
+
+                        default:
+                            cout << "Ingresa una opción válida" << endl;
+                            break;
+                    };
+                } while (opcion != 6);
+                break;
+        }
+    } while (opcion != 2);
+
+    return 0;
 }
